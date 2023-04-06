@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { PropTypes } from 'prop-types';
 import './CounterButton.css';
 
@@ -16,15 +16,11 @@ export default function CounterButton({by, incrementMethod, decrementMethod}) {
     //   borderRadius: "30px",
     // };
 
-    const [count, setCount] = useState(0);
-
     function incrementCounterFunction() {
-        setCount(count + by);
         incrementMethod(by);
     }
 
     function decrementCounterFunction() {
-        setCount(count - by);
         decrementMethod(by);
     }
 
