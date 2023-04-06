@@ -16,14 +16,6 @@ export default function CounterButton({by, incrementMethod, decrementMethod}) {
     //   borderRadius: "30px",
     // };
 
-    function incrementCounterFunction() {
-        incrementMethod(by);
-    }
-
-    function decrementCounterFunction() {
-        decrementMethod(by);
-    }
-
     return (
         <div className="Counter">
             <div>
@@ -34,12 +26,12 @@ export default function CounterButton({by, incrementMethod, decrementMethod}) {
                         style={buttonStyle}
                 > */}
                 <button className="counterButton" 
-                        onClick={incrementCounterFunction}
+                        onClick={() => incrementMethod(by)}
                 >
                     +{by}
                 </button>
                 <button className="counterButton" 
-                        onClick={decrementCounterFunction}
+                        onClick={() => decrementMethod(by)}
                 >
                     -{by}
                 </button>
