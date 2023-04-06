@@ -4,9 +4,22 @@ import Counter from './components/counter/Counter';
 function App() {
   return (
     <div className="App">
-      <Counter></Counter>
+        <Counter/>
     </div>
   );
 }
+
+// props/properties pass as an object of key/value pairs
+//function PlayingWithProps(properties) {
+//console.log(properties.property1);
+
+// or directly via object decomposition
+// function PlayingWithProps({property1, property2}) {
+//     console.log(property1);
+
+//     return (
+//         <div>props</div>
+//     );
+// }
 
 export default App;
