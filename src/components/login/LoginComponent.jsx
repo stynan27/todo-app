@@ -31,6 +31,7 @@ export default function LoginComponent() {
 
     return (
         <div className="Login">
+            <h1>Time to Login</h1>
             {/* Example of conditional render in React */}
             {showSuccessMessage && <div className="successMessage">Authenticated Successfully</div>}
             {showErrorMessage && <div className="errorMessage">Authentication Failed.</div>}

@@ -1,7 +1,10 @@
 export default function WelcomeComponent() {
     return (
-        <div className="Welcome">
-           Welcome Component
+        <div className="WelcomeComponent">
+            <h1>Welcome, Seamus!</h1>
+            <div>
+                Welcome Component
+            </div>
         </div>
     );
 }
