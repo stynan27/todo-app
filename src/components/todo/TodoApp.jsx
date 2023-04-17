@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes, useParams } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import LoginComponent from "../login/LoginComponent";
 import LogoutComponent from "../logout/LogoutComponent";
@@ -13,9 +13,9 @@ import './TodoApp.css';
 export default function TodoApp() {
     return (
         <div className="TodoApp">
-            <HeaderComponent/>
-
             <BrowserRouter>
+                {/* Place Header/Footer in here for Link component usage */}
+                <HeaderComponent/>
                 <Routes>
                     <Route path="/" element={<LoginComponent/>} />
                     <Route path="/login" element={<LoginComponent/>} />
@@ -26,9 +26,8 @@ export default function TodoApp() {
                     {/* All other trafic to error page */}
                     <Route path="*" element={<ErrorComponent/>} />
                 </Routes>
+                <FooterComponent/>
             </BrowserRouter>
-
-            <FooterComponent/>
         </div>
     );
 }
