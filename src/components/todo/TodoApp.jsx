@@ -38,11 +38,7 @@ export default function TodoApp() {
                             </AuthenticatedRoute>
                         } />
 
-                        <Route path="/todos" element={
-                            <AuthenticatedRoute>
-                                <ListTodosComponent/>
-                            </AuthenticatedRoute>
-                        } />
+                        <Route path="/todos" element={<ListTodosComponent/>} />
 
                         {/* /welcome provides path param for username */}
                         <Route path="/welcome/:username" element={
