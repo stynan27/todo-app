@@ -7,8 +7,11 @@ export default function HeaderComponent() {
     // new way - via anonymous function in AuthContext.js
     // no need to re-import useContext() from react!
     const authContext = useAuth();
+    const isAuthenticated = authContext.isAuthenticated;
 
-    console.log(authContext.number)
+    function logout() {
+        authContext.setAuthenticated(false);
+    }
 
     return (
         <header className="border-bottom border-light border-5 mb-5 p-2">
@@ -23,14 +26,10 @@ export default function HeaderComponent() {
                             <ul className="navbar-nav">
                                 <li className="nav-item fs-5">
                                     {/* Use of link component here for local routing */}
-                                    <Link to="/welcome/seamus" className="nav-link">
-                                    Home
-                                    </Link>
+                                    { isAuthenticated &&<Link to="/welcome/seamus" className="nav-link">Home</Link> }  
                                 </li>
                                 <li className="nav-item fs-5">
-                                    <Link to="/todos" className="nav-link">
-                                    Todos
-                                    </Link>
+                                    { isAuthenticated && <Link to="/todos" className="nav-link">Todos</Link> }
                                 </li>
                             </ul>
                         </div>
@@ -38,14 +37,10 @@ export default function HeaderComponent() {
 
                         <ul className="navbar-nav">
                             <li className="nav-item fs-5">
-                                <Link className="nav-link" to="/login">
-                                Login
-                                </Link>
+                                { !isAuthenticated && <Link className="nav-link" to="/login">Login</Link> }
                             </li>
                             <li className="nav-item fs-5">
-                                <Link className="nav-link" to="/logout">
-                                Logout
-                                </Link>
+                                { isAuthenticated && <Link className="nav-link" to="/logout" onClick={logout}>Logout</Link> }
                             </li>
                         </ul>
                     </nav>

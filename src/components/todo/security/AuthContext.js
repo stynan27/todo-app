@@ -10,13 +10,13 @@ export const useAuth = () => useContext(AuthContext);
 
 export default function AuthProvider({ children }) {
 
-    const [number, setNumber] = useState(0);
+    const [isAuthenticated, setAuthenticated] = useState(false);
 
-
-    setInterval(() => setNumber(number + 5), 5000 );
+    // more readible way to export variable names
+    const valuesToBeShared = { isAuthenticated, setAuthenticated };
 
     return (
-        <AuthContext.Provider value={ { number } }>
+        <AuthContext.Provider value={ valuesToBeShared }>
             {children}
         </AuthContext.Provider>
     );
