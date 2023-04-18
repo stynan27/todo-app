@@ -6,7 +6,6 @@ export default function LoginComponent() {
 
     const [username, setUsername] = useState("seamus");
     const [password, setPassword] = useState("");
-    const [showSuccessMessage, setShowSuccessMessage] = useState(false);
     const [showErrorMessage, setShowErrorMessage] = useState(false);
 
     const navigate = useNavigate();
@@ -21,15 +20,10 @@ export default function LoginComponent() {
     }
 
     function handleSubmit(event) {
-        if (username === 'seamus' && password === 'dummy') {
-            authContext.setAuthenticated(true);
-            setShowSuccessMessage(true);
-            setShowErrorMessage(false);
+        if (authContext.login(username, password)) {
             navigate(`welcome/${username}`);
         } else {
-            authContext.setAuthenticated(false);
             setShowErrorMessage(true);
-            setShowSuccessMessage(false);  
         }
     }
 
@@ -37,7 +31,6 @@ export default function LoginComponent() {
         <div className="Login">
             <h1>Time to Login</h1>
             {/* Example of conditional render in React */}
-            {showSuccessMessage && <div className="successMessage">Authenticated Successfully</div>}
             {showErrorMessage && <div className="errorMessage">Authentication Failed.</div>}
             <div className="LoginForm">
                 <div>
