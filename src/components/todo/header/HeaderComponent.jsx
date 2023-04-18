@@ -7,7 +7,7 @@ export default function HeaderComponent() {
                 <div className="row">
                     <nav className="navbar navbar-expand-lg">
                         <a href="https://github.com/stynan27" className="navbar-brand ms-2 fs-2 fw-bold text-black">
-                            stynan27 GitHub
+                            stynan27@GitHub
                         </a>
 
                         <div className="collapse navbar-collapse">
