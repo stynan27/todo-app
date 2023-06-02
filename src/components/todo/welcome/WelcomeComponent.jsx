@@ -1,15 +1,26 @@
 import { useParams, Link } from "react-router-dom";
-import axios from 'axios';
+import { useState } from "react";
+
+import { retrieveHelloWorldBean, retrieveHelloWorldPathVariable } from "../api/HelloWorldApiService";
+
 
 export default function WelcomeComponent() {
 
     // get URL path params by object deconstruction
-    const { username }= useParams();
+    const { username } = useParams();
+
+    const [message, setMessage] = useState(null);
 
     function callHelloWorldRestAPI(){
         console.log('called');
+        
         //axios call to invoke Spring Boot Rest API
-        axios.get("http://localhost:8080/hello-world")
+        retrieveHelloWorldBean()
+            .then((resp) => successfulResponse(resp))
+            .catch((error) => errorResponse(error))
+            .finally( () => console.log('cleanup'));
+
+        retrieveHelloWorldPathVariable("Seamus")
             .then((resp) => successfulResponse(resp))
             .catch((error) => errorResponse(error))
             .finally( () => console.log('cleanup'));
@@ -17,6 +28,7 @@ export default function WelcomeComponent() {
 
     function successfulResponse(response) {
         console.log(response);
+        setMessage(response.data.message);
     }
 
     function errorResponse(error) {
@@ -34,6 +46,9 @@ export default function WelcomeComponent() {
                 <button className="btn btn-success m-5" onClick={callHelloWorldRestAPI}>
                     Call Hello World
                 </button>
+            </div>
+            <div className="text-info">
+            {message}
             </div>
         </div>
     );
