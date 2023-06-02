@@ -1,13 +1,31 @@
+import { useState } from "react";
+import { retrieveAllTodosForUsername } from "../api/TodoApiService";
+import { useEffect } from "react";
+
 export default function ListTodosComponent() {
 
-    const today = new Date();
-    const targetDate = new Date(today.getFullYear()+12, today.getMonth(), today.getDay());
+    //const today = new Date();
+    //const targetDate = new Date(today.getFullYear()+12, today.getMonth(), today.getDay());
     
-    const todos = [
-        { id: 1, description: 'learn AWS', done: false, targetDate: targetDate},
-        { id: 2, description: 'learn Fullstack', done: false, targetDate: targetDate},
-        { id: 3, description: 'learn DevOps', done: false, targetDate: targetDate},
-    ];
+    const [todos, setTodos] = useState([]);
+
+    // GET ALL TODOS for given username
+    // useEffect HOOK - Allows you to perform side-effects in function components
+    // Examples of side-effects include: fetching data, changing the DOM, & setting up subscriptions
+    // Combination of the lifecycle hooks: componentDidMount, componentDidUpdate, & componentWillUnmount combined.
+    useEffect(
+        () => {
+            refreshTodos()
+        }, []
+    )
+
+    function refreshTodos() {
+        retrieveAllTodosForUsername('Seamus')
+            .then(response => {
+                setTodos(response.data);
+            })
+            .catch(error => console.log(error));
+    }
 
     return (
         <div className="container">
@@ -33,7 +51,7 @@ export default function ListTodosComponent() {
                                     <td>{todo.id}</td>
                                     <td>{todo.description}</td>
                                     <td>{todo.done.toString()}</td>
-                                    <td>{todo.targetDate.toDateString()}</td>
+                                    <td>{todo.targetDate}</td>
                                 </tr>
                             )
                         )
