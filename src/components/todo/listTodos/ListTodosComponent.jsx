@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { retrieveAllTodosForUsername } from "../api/TodoApiService";
+import { deleteTodoApi, retrieveAllTodosForUsernameApi } from "../api/TodoApiService";
 import { useEffect } from "react";
 
 export default function ListTodosComponent() {
@@ -8,6 +8,8 @@ export default function ListTodosComponent() {
     //const targetDate = new Date(today.getFullYear()+12, today.getMonth(), today.getDay());
     
     const [todos, setTodos] = useState([]);
+
+    const [message, setMessage] = useState(null);
 
     // GET ALL TODOS for given username
     // useEffect HOOK - Allows you to perform side-effects in function components
@@ -20,24 +22,41 @@ export default function ListTodosComponent() {
     )
 
     function refreshTodos() {
-        retrieveAllTodosForUsername('Seamus')
+        retrieveAllTodosForUsernameApi('Seamus')
             .then(response => {
                 setTodos(response.data);
             })
             .catch(error => console.log(error));
     }
 
+    function deleteTodo(id) {
+        console.log(`delete todo ${id}`);
+
+        // hardcoded username to 'Seamus' for now...
+        deleteTodoApi('Seamus', id)            
+            .then(() => {
+                setMessage(`Delete of todo with ID ${id} successful`);
+                // update Todos list
+                refreshTodos();
+            })
+            .catch(error => console.log(error));;
+    }
+
     return (
         <div className="container">
            <h1>Things you want To Do!</h1>
+           {message && <div 
+                className="alert alert-warning"
+            >
+            {message}</div>}
            <div>
                 <table className="table">
                     <thead>
                         <tr>
-                            <td>ID</td>
-                            <td>Description</td>
-                            <td>Is Done?</td>
-                            <td>Target Date</td>
+                            <th>Description</th>
+                            <th>Is Done?</th>
+                            <th>Target Date</th>
+                            <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -48,10 +67,18 @@ export default function ListTodosComponent() {
                         todos.map(
                             todo => (
                                 <tr key={todo.id}>
-                                    <td>{todo.id}</td>
                                     <td>{todo.description}</td>
                                     <td>{todo.done.toString()}</td>
                                     <td>{todo.targetDate}</td>
+                                    <td>
+                                        {/* Example of passing a value to a hook */}
+                                        <button 
+                                            className="btn btn-warning"
+                                            onClick={() => deleteTodo(todo.id)}
+                                        >
+                                            Delete
+                                        </button>
+                                    </td>
                                 </tr>
                             )
                         )
