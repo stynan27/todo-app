@@ -29,3 +29,5 @@ SpringTodoRestAPI/.classpath
 SpringTodoRestAPI/.project
 SpringTodoRestAPI/.settings/
 SpringTodoRestAPI/target/
+
+.idea
