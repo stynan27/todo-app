@@ -8,6 +8,7 @@ import WelcomeComponent from "./welcome/WelcomeComponent";
 import ErrorComponent from "./error/ErrorComponent";
 import HeaderComponent from "./header/HeaderComponent";
 //import FooterComponent from "./footer/FooterComponent";
+import TodoComponent from "./todo/TodoComponent";
 
 import './TodoApp.css';
 
@@ -41,6 +42,13 @@ export default function TodoApp() {
                         <Route path="/todos" element={
                             <AuthenticatedRoute>
                                 <ListTodosComponent/>
+                            </AuthenticatedRoute>
+                        } />
+
+                        {/* Example route with id param */}
+                        <Route path="/todo/:id" element={
+                            <AuthenticatedRoute>
+                                <TodoComponent/>
                             </AuthenticatedRoute>
                         } />
 
