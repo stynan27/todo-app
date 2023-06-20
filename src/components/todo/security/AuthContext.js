@@ -12,12 +12,16 @@ export default function AuthProvider({ children }) {
 
     const [isAuthenticated, setAuthenticated] = useState(false);
 
+    const [username, setUsername] = useState(null);
+
     function login(username, password) {
         if (username === 'seamus' && password === 'dummy') {
             setAuthenticated(true);
+            setUsername(username);
             return true;
         } else {
             setAuthenticated(false);
+            setUsername(null);
             return false;
         }
     }
@@ -27,7 +31,7 @@ export default function AuthProvider({ children }) {
     }
 
     // more readible way to export variable names
-    const valuesToBeShared = { isAuthenticated, login, logout };
+    const valuesToBeShared = { isAuthenticated, login, logout, username };
 
     return (
         <AuthContext.Provider value={ valuesToBeShared }>
