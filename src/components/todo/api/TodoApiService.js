@@ -1,9 +1,12 @@
 import axios from 'axios';
 
+// CHANGEME FOR WORK/DESKTOP (localhost/mooseden)
+const host = 'mooseden';
+
 // Create an axios configuration which has our baseURL
 const apiClient = axios.create(
     {
-        baseURL: "http://localhost:8080"
+        baseURL: "http://" + host + ":8080"
     }
 )
 
