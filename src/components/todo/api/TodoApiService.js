@@ -1,14 +1,4 @@
-import axios from 'axios';
-
-// CHANGEME FOR WORK/DESKTOP (localhost/mooseden)
-const host = 'mooseden';
-
-// Create an axios configuration which has our baseURL
-const apiClient = axios.create(
-    {
-        baseURL: "http://" + host + ":8080"
-    }
-)
+import { apiClient } from './ApiClient';
 
 export const retrieveAllTodosForUsernameApi 
     = (username) => apiClient.get(`/users/${username}/todos`);

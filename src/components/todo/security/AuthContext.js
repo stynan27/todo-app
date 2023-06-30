@@ -1,5 +1,6 @@
 import { createContext, useState, useContext } from "react";
 import { executeBasicAuthenticationService } from "../api/HelloWorldApiService";
+import { apiClient } from "../api/ApiClient";
 
 export const AuthContext = createContext();
 
@@ -30,6 +31,18 @@ export default function AuthProvider({ children }) {
                 setAuthenticated(true);
                 setUsername(username);
                 setToken(basicAuthToken);
+
+                // Configure basic auth for ALL endpoints with axios
+                // (Adds Basic Auth header to ALL endpoints)
+                apiClient.interceptors.request.use(
+                    (config) => {
+                        console.log('interceptor adding a token')
+
+                        config.headers.Authorization = basicAuthToken
+
+                        return config;
+                    }
+                )
 
                 return true;
             } else {
