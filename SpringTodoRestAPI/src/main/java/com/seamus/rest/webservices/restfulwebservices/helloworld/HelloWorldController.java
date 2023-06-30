@@ -7,6 +7,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class HelloWorldController {
 	
+	// Basic Auth URL to hit first (preflight check) 
+	// before accessing other endpoints
+	// Checks for valid user credentials in client 200 vs 401 response on login
+	@GetMapping(path = "/basicauth")
+	public String basicAuthCheck() {
+		return "Success"; 
+	}
+	
 	@GetMapping(path = "/hello-world")
 	public String helloWorld() {
 		return "Hello World"; 
