@@ -31,7 +31,7 @@ export default function AuthProvider({ children }) {
                 setAuthenticated(true);
                 setUsername(username);
                 setToken(basicAuthToken);
-
+                
                 // Configure basic auth for ALL endpoints with axios
                 // (Adds Basic Auth header to ALL endpoints)
                 apiClient.interceptors.request.use(
@@ -47,10 +47,12 @@ export default function AuthProvider({ children }) {
                 return true;
             } else {
                 logout();
+                //updateInterceptorHeader(basicAuthToken);
                 return false;
             }
         } catch(error) {
             logout();
+            //updateInterceptorHeader(basicAuthToken);
             return false;
         }
 
