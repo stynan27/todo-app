@@ -22,3 +22,11 @@ export const retrieveHelloWorldPathVariable
             Authorization: "Basic c2VhbXVzOmR1bW15"
         }
     });
+
+// Contact basic auth service to check for valid token
+export const executeBasicAuthenticationService
+    = (token) => apiClient.get(`/basicauth`, {
+        headers: {
+            Authorization: token
+        }
+    });
