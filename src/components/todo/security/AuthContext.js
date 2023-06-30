@@ -53,7 +53,7 @@ export default function AuthProvider({ children }) {
     const valuesToBeShared = { isAuthenticated, login, logout, username, token };
 
     return (
-        <AuthContext.Provider value={ valuesToBeShared }></AuthContext.Provider>
+        <AuthContext.Provider value={ valuesToBeShared }>
             {children}
         </AuthContext.Provider>
     );

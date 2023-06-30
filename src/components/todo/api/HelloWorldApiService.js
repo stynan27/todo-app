@@ -11,15 +11,13 @@ const apiClient = axios.create(
 )
 
 // alternative "one-liner" to a function
-export const retrieveHelloWorldBean 
-    = () => apiClient.get("/hello-world-bean");
+// export const retrieveHelloWorldBean 
+//     = () => apiClient.get("/hello-world-bean");
 
-// Note: Authorization header string generated via postman request
-//Error: Response to preflight doesn't pass access control check
 export const retrieveHelloWorldPathVariable 
-    = (name) => apiClient.get(`/hello-world/path-variable/${name}`, {
+    = (username, token) => apiClient.get(`/hello-world/path-variable/${username}`, {
         headers: {
-            Authorization: "Basic c2VhbXVzOmR1bW15"
+            Authorization: token
         }
     });
 

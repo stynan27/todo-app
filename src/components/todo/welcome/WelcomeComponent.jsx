@@ -1,7 +1,8 @@
 import { useParams, Link } from "react-router-dom";
 import { useState } from "react";
 
-import { retrieveHelloWorldBean, retrieveHelloWorldPathVariable } from "../api/HelloWorldApiService";
+import { retrieveHelloWorldPathVariable } from "../api/HelloWorldApiService";
+import { useAuth } from "../security/AuthContext";
 
 
 export default function WelcomeComponent() {
@@ -9,18 +10,15 @@ export default function WelcomeComponent() {
     // get URL path params by object deconstruction
     const { username } = useParams();
 
+    const authContext = useAuth();
+
     const [message, setMessage] = useState(null);
 
     function callHelloWorldRestAPI(){
         console.log('called');
         
         //axios call to invoke Spring Boot Rest API
-        retrieveHelloWorldBean()
-            .then((resp) => successfulResponse(resp))
-            .catch((error) => errorResponse(error))
-            .finally( () => console.log('cleanup'));
-
-        retrieveHelloWorldPathVariable("Seamus")
+        retrieveHelloWorldPathVariable(username, authContext.token)
             .then((resp) => successfulResponse(resp))
             .catch((error) => errorResponse(error))
             .finally( () => console.log('cleanup'));
