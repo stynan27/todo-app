@@ -22,7 +22,7 @@ public class BasicAuthenticationSecurityConfiguration {
 		// Prevent requests (403), if not authorized.
 		http.authorizeHttpRequests(
 				auth -> auth
-					.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+					.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 					.anyRequest().authenticated()
 				);
 		// Enable basic authentication
