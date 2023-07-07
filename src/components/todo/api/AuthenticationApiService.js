@@ -7,3 +7,9 @@ export const executeBasicAuthenticationService
             Authorization: token
         }
     });
+
+// Contact basic auth service to check for valid token
+export const executeJwtAuthenticationService
+= (username, password) => apiClient.post(`/authenticate`, 
+    { username, password} // pass user & pass directly in request body
+);
