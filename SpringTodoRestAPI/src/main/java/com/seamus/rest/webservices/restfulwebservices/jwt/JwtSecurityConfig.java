@@ -49,9 +49,12 @@ public class JwtSecurityConfig {
         // https://github.com/spring-projects/spring-security/issues/12310
         return httpSecurity
                 .authorizeHttpRequests(auth -> auth
-                    .requestMatchers("/authenticate").permitAll()
-                    .requestMatchers(PathRequest.toH2Console()).permitAll() // h2-console is a servlet and NOT recommended for a production
-                    .requestMatchers(HttpMethod.OPTIONS,"/**")
+                	.antMatchers("/authenticate").permitAll()
+                	// OUTDATED! Creates H2Console dependency Spring Bean Errors
+                	//.requestMatchers(PathRequest.toH2Console()).permitAll()
+                	.antMatchers(HttpMethod.OPTIONS,"/**")
+                    //.requestMatchers("/authenticate").permitAll()
+                    //.requestMatchers(HttpMethod.OPTIONS,"/**")
                     .permitAll()
                     .anyRequest()
                     .authenticated())
