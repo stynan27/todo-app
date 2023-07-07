@@ -23,7 +23,7 @@ public class BasicAuthenticationSecurityConfiguration {
 		http.authorizeHttpRequests(
 				auth -> auth
 					//.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-				.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+					.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 					.anyRequest().authenticated()
 				);
 		// Enable basic authentication
