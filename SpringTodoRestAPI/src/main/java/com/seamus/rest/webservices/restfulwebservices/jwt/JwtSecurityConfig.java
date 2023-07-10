@@ -47,12 +47,14 @@ public class JwtSecurityConfig {
         
         // h2-console is a servlet 
         // https://github.com/spring-projects/spring-security/issues/12310
-        return httpSecurity
+        httpSecurity
                 .authorizeHttpRequests(auth -> auth
                 	.antMatchers("/authenticate").permitAll()
                 	// OUTDATED! Creates H2Console dependency Spring Bean Errors
                 	//.requestMatchers(PathRequest.toH2Console()).permitAll()
-                	.antMatchers(HttpMethod.OPTIONS,"/**")
+                	// Use this version instead!
+                	.antMatchers("/h2-console/**").permitAll()
+                	.antMatchers(HttpMethod.OPTIONS,"/**")	
                     //.requestMatchers("/authenticate").permitAll()
                     //.requestMatchers(HttpMethod.OPTIONS,"/**")
                     .permitAll()
@@ -66,8 +68,9 @@ public class JwtSecurityConfig {
                 .httpBasic(
                         Customizer.withDefaults())
                 .headers(header -> {header.
-                    frameOptions().sameOrigin();})
-                .build();
+                    frameOptions().sameOrigin();});
+        
+                return httpSecurity.build();
     }
 
     @Bean

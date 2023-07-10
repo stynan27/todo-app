@@ -11,32 +11,36 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-//@RestController
-public class TodoResource {
-	
-	private TodoService todoService;
+import com.seamus.rest.webservices.restfulwebservices.todo.repository.TodoRepository;
 
-	public TodoResource(TodoService todoService) {
+@RestController
+public class TodoJpaResource {
+	
+	// NOTE: Better to use a todoService here as an intermediary 
+	// rather than directly invoking the todoRepository
+	private TodoRepository todoRepository;
+
+	public TodoJpaResource(TodoRepository todoRepository) {
 		super();
-		this.todoService = todoService;
+		this.todoRepository = todoRepository;
 	}
 
 
 	@GetMapping("/users/{username}/todos")
 	public List<Todo> retrieveTodos(@PathVariable String username) {
-		return todoService.findByUsername(username);
+		return todoRepository.findByUsername(username);
 	}
 	
 	@GetMapping("/users/{username}/todos/{id}")
 	public Todo retrieveTodo(@PathVariable String username, 
 			@PathVariable int id) {
-		return todoService.findById(id);
+		return todoRepository.findById(id).get();
 	}
 	
 	@DeleteMapping("/users/{username}/todos/{id}")
 	public ResponseEntity<Void> deleteTodo(@PathVariable String username, 
 			@PathVariable int id) {
-		todoService.deleteById(id);
+		todoRepository.deleteById(id);
 		// Return a success status with custom response (noContent or some custom content)
 		return ResponseEntity.noContent().build();
 	}
@@ -45,7 +49,7 @@ public class TodoResource {
 	public Todo updateTodo(@PathVariable String username, 
 			@PathVariable int id, @RequestBody Todo todo) {
 		// returns null/Void -> would be better if this returned the todo as well...
-		todoService.updateTodo(todo);
+		todoRepository.save(todo);
 		return todo;
 	}
 	
@@ -54,8 +58,9 @@ public class TodoResource {
 	public Todo createTodo(@PathVariable String username, 
 			@RequestBody Todo todo) {
 		// returns null/Void -> would be better if this returned the todo as well...
-		Todo createdTodo = todoService.addTodo(username, todo.getDescription(), 
-				todo.getTargetDate(), todo.isDone() );
-		return createdTodo;
+		// prevent update of existing Todo
+		todo.setId(null);
+		todo.setUsername(username);
+		return todoRepository.save(todo);
 	}
 }

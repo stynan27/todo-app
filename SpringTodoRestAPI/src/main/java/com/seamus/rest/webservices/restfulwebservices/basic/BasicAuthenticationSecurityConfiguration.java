@@ -25,8 +25,6 @@ public class BasicAuthenticationSecurityConfiguration {
 				auth -> auth
 					//.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 					.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-					// Disable security checks for H2 console
-				    .requestMatchers(PathRequest.toH2Console()).permitAll()
 					.anyRequest().authenticated()
 				);
 		// Enable basic authentication
